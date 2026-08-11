@@ -1,25 +1,31 @@
 import {useEffect, useState} from "react";
 
+export interface MyRegisterForm {
+    email: string;
+    password: string;
+}
+
 export function APITester() {
 
-  const [data, setData] = useState()
-    
-    useEffect(() => {
-        loadData()
-    }, []);
+  const [registerForm, setRegisterForm] = useState<MyRegisterForm>({
+      password: '',
+      email: 'your@email.com'
+  })
 
 
-  async function loadData() {
-      const response = await fetch('/api/hello')
-      const json = await response.json();
-      setData(json)
-  }
+    function loadData() {
 
-  return (
+    }
+
+    function onChangeEvent() {
+        
+    }
+
+    return (
     <div>
-      {
-        JSON.stringify(data)
-      }
+        <input value={registerForm.email} onChange={onChangeEvent} />
+        <input type="password" />
+      <button onClick={() => loadData()}>click me</button>
  </div>
   );
 }
