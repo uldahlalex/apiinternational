@@ -1,5 +1,6 @@
 import { serve } from "bun";
 import index from "./index.html";
+import type {MyRegisterForm} from "@/APITester.tsx";
 
 const server = serve({
   routes: {
@@ -14,9 +15,19 @@ const server = serve({
         });
       },
       async POST(req) {
+        const json = (await req.json()) as MyRegisterForm
+        if(json.password.length < 6) {
+          return Response.json({
+            message: 'should be 6 chars or more'
+          })
+        }
+        if(!json.email.includes('@')) {
+          return Response.json({
+            message: 'that was not an email'
+          })
+        }
         return Response.json({
-          message: "you tried to register",
-          method: "PUT",
+          message: "you have been registered",
         });
       },
     },
