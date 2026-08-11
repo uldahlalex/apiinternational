@@ -12,16 +12,27 @@ export function APITester() {
         email: 'your@email.com'
     })
 
+    const [response, setResponse] = useState<string>()
+
     function onChangeEvent(e: ChangeEvent<HTMLInputElement, HTMLInputElement>) {
         setRegisterForm({...registerForm, email: e.target.value})
     }
 
-    function sendForm() {
-        
+    async function sendForm() {
+        const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(registerForm)
+        })
+        const json = await response.json();
+        setResponse(json.message)
     }
 
     return (
     <div>
+        {response}
         <input value={registerForm.email} onChange={e => onChangeEvent(e)} />
         <input type="password" onChange={e =>
             setRegisterForm({...registerForm, password: e.target.value})} />
