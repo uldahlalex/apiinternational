@@ -1,10 +1,15 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export function APITester() {
 
   const [data, setData] = useState()
+    
+    useEffect(() => {
+        loadData()
+    }, []);
 
-  async function buttonHasBeenClicked() {
+
+  async function loadData() {
       const response = await fetch('/api/hello')
       const json = await response.json();
       setData(json)
@@ -15,7 +20,6 @@ export function APITester() {
       {
         JSON.stringify(data)
       }
-      <button onClick={buttonHasBeenClicked}>click me to send request to API</button>
  </div>
   );
 }
