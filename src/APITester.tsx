@@ -2,20 +2,18 @@ import {useState} from "react";
 
 export function APITester() {
 
-  const [products, setProducts] = useState()
+  const [data, setData] = useState()
 
-  function buttonHasBeenClicked() {
-    fetch('https://dummyjson.com/products')
-        .then(res => res.json())
-        .then(resp => {
-          setProducts(resp)
-        });
+  async function buttonHasBeenClicked() {
+      const response = await fetch('/api/hello')
+      const json = await response.json();
+      setData(json)
   }
 
   return (
     <div>
       {
-        JSON.stringify(products)
+        JSON.stringify(data)
       }
       <button onClick={buttonHasBeenClicked}>click me to send request to API</button>
  </div>
